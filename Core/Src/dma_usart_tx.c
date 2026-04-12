@@ -11,6 +11,12 @@ extern DMA_HandleTypeDef hdma_usart2_tx;
 uint8_t tx_buf[DIM_TX_BUF];
 volatile bool tx_busy = 0;
 
+// only for debug
+void USART_Transmit(uint8_t *data, size_t len) {
+  if (!tx_busy && HAL_UART_Transmit_DMA(&huart2, data, len) != HAL_OK) {
+    // error handling
+  }
+}
 
 // mutex on DMA TX
 bool DMA_TX_Transfer(size_t len) {

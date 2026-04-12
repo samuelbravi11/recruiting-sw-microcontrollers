@@ -25,6 +25,7 @@
 #include "dma_controller.h"
 #include "dma_adc.h"
 #include "dma_usart_tx.h"
+#include "timers.h"
 
 /* USER CODE END Includes */
 
@@ -111,8 +112,12 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // INIT
-  HAL_TIM_Base_Start(&htim3); // start timer 3 to trigger ADC
+  HAL_ADCEx_Calibration_Start(&hadc1);
   DMA_ADC_Start();
+  TIM3_Base_Start(); // start timer 3 to trigger ADC
+  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1) == GPIO_PIN_SET) {
+    TIM1_Base_Start_IT();
+  }
 
   /* USER CODE END 2 */
 
@@ -125,9 +130,9 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
     // INIT SOPRA
+    uint8_t state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_1);
     check_and_process();
-
-
+    
   }
   /* USER CODE END 3 */
 }
@@ -205,7 +210,7 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_RISING;
   hadc1.Init.DMAContinuousRequests = ENABLE;
   hadc1.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-  hadc1.Init.SamplingTimeCommon1 = ADC_SAMPLETIME_1CYCLE_5;
+  hadc1.Init.SamplingTimeCommon1 = ADC_SAMPLETIME_160CYCLES_5;
   hadc1.Init.OversamplingMode = DISABLE;
   hadc1.Init.TriggerFrequencyMode = ADC_TRIGGER_FREQ_HIGH;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
@@ -299,7 +304,7 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 1199;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 99;
+  htim3.Init.Period = 9;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
@@ -398,8 +403,8 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PA1 */
   GPIO_InitStruct.Pin = GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PA5 */
@@ -410,6 +415,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
+
+  HAL_NVIC_SetPriority(EXTI0_1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
 
   /* USER CODE END MX_GPIO_Init_2 */
 }

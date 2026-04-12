@@ -78,12 +78,14 @@ C_SOURCES =  \
 Core/Src/dma_adc.c \
 Core/Src/dma_controller.c \
 Core/Src/dma_usart_tx.c \
+Core/Src/gpio_adc.c \
 Core/Src/main.c \
 Core/Src/stm32c0xx_hal_msp.c \
 Core/Src/stm32c0xx_it.c \
 Core/Src/syscalls.c \
 Core/Src/sysmem.c \
 Core/Src/system_stm32c0xx.c \
+Core/Src/timers.c \
 Drivers/STM32C0xx_HAL_Driver/Src/stm32c0xx_hal.c \
 Drivers/STM32C0xx_HAL_Driver/Src/stm32c0xx_hal_adc.c \
 Drivers/STM32C0xx_HAL_Driver/Src/stm32c0xx_hal_adc_ex.c \

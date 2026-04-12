@@ -1,7 +1,7 @@
 #ifndef DMA_ADC_H
 #define DMA_ADC_H
 
-#define DIM_ADC_BUF 16
+#define DIM_ADC_BUF 1024
 
 #include <stdint.h>
 #include <stdbool.h>
