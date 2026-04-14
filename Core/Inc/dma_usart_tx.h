@@ -12,6 +12,5 @@ extern uint8_t tx_buf[DIM_TX_BUF];
 extern volatile bool tx_busy;
 
 bool DMA_TX_Transfer(size_t len);
-void USART_Transmit(uint8_t *data, size_t len);
 
 #endif

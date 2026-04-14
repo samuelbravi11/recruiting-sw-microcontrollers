@@ -11,5 +11,6 @@ extern volatile bool scdHalfCplt;
 extern uint16_t adc_buf[DIM_ADC_BUF];
 
 void DMA_ADC_Start(void);
+void DMA_ADC_Stop(void);
 
 #endif

@@ -13,9 +13,14 @@ volatile bool scdHalfCplt = 0;
 uint16_t adc_buf[DIM_ADC_BUF];
 
 
-// DMA start reading from ADC
+// start ADC generating DMA requests
 void DMA_ADC_Start(void) {
   HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buf, DIM_ADC_BUF);
+}
+
+// stop ADC generating DMA requests
+void DMA_ADC_Stop(void) {
+  HAL_ADC_Stop_DMA(&hadc1);
 }
 
 // ADC callback
