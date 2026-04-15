@@ -82,7 +82,6 @@ Core/Src/dma_usart_tx.c \
 Core/Src/exti.c \
 Core/Src/fsm.c \
 Core/Src/gpio_adc.c \
-Core/Src/guard.c \
 Core/Src/main.c \
 Core/Src/process_state.c \
 Core/Src/queue_event.c \

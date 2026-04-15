@@ -4,6 +4,7 @@
 #include "fsm_types.h"
 #include <stdbool.h>
 
+#define DIM_BUF_INFO 64
 #define NUM_CMD 5
 
 enum CliCommand {

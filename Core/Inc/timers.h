@@ -1,21 +1,20 @@
 #ifndef TIMERS_H
 #define TIMERS_H
 
+#include "fsm_types.h"
 #include "main.h"
 #include <stdbool.h>
 
-extern volatile bool timer1_expired; // TODO
+FSM_RET TIM1_Base_Start_IT(void);
+FSM_RET TIM1_Base_Stop_IT(void);
 
-void TIM1_Base_Start_IT(void);
-void TIM1_Base_Stop_IT(void);
+FSM_RET TIM3_Base_Start(void);
+FSM_RET TIM3_Base_Stop(void);
 
-void TIM3_Base_Start(void);
-void TIM3_Base_Stop(void);
+FSM_RET TIM14_Base_Start_IT(void);
+FSM_RET TIM14_Base_Stop_IT(void);
 
-void TIM14_Base_Start_IT(void);
-void TIM14_Base_Stop_IT(void);
-
-void TIM16_Base_Start_IT(void);
-void TIM16_Base_Stop_IT(void);
+FSM_RET TIM16_Base_Start_IT(void);
+FSM_RET TIM16_Base_Stop_IT(void);
 
 #endif

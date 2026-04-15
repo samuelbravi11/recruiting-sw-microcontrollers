@@ -3,8 +3,8 @@
 
 #include <stdbool.h>
 
-#define GPIO_PIN_ADC 0x0002
-#define GPIO_PORT_ADC ((0x50000000UL) + 0x00000000UL)
+#define GPIO_PIN_ADC GPIO_PIN_1
+#define GPIO_PORT_ADC GPIOA
 
 void GPIO_start_receive(void);
 void GPIO_stop_receive(void);
