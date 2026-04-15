@@ -1,17 +1,20 @@
 #include "gpio_adc.h"
 #include "timers.h"
+#include <stdbool.h>
 #include <stdint.h>
 
-void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin) {
-  if (GPIO_Pin == GPIO_PIN_ADC) {
-    // START TIMER 1
-    TIM1_Base_Start_IT();
-  }
+static volatile bool gpio_receiving = false;
+
+void GPIO_start_receive(void) {
+   // enable interrupt for GPIO pin 1 (PA1)
+   HAL_NVIC_EnableIRQ(EXTI0_1_IRQn);
+   gpio_receiving = true;
 }
 
-void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin) {
-  if (GPIO_Pin == GPIO_PIN_ADC) {
-    // STOP TIMER 1
-    TIM1_Base_Stop_IT();
-  }
+void GPIO_stop_receive(void) {
+   // disable interrupt for GPIO pin 1 (PA1)
+   HAL_NVIC_DisableIRQ(EXTI0_1_IRQn);
+   gpio_receiving = false;
 }
+
+bool GPIO_is_receiving(void) { return gpio_receiving; }
